@@ -9,7 +9,8 @@ export function fetchWeather(city, country='uk') {
     const url = `${ROOT_URL}&q=${city},${country}`;
     const request = axios.get(url);
 
-    //call breezometer api with long/lat of city from request
+    // call breezometer api with long/lat of city from request
+    // needs to be called once the axios promise finishes
 
     return {
         type: FETCH_WEATHER,
@@ -17,4 +18,4 @@ export function fetchWeather(city, country='uk') {
     };
 }
 
-// add breezometer api function definition  here
+// add breezometer api function definition here
