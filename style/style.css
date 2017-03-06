@@ -25,3 +25,32 @@
     width: 100%;
     margin: 10px;
 }
+
+td, th {
+    vertical-align: middle !important;
+    text-align: center;
+}
+
+.chartContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.maxmin {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+}
+
+.min {
+    margin-top: 80px;
+}
+
+svg {
+    height: 120px;
+}
+
+td:first-of-type, td:first-of-type > div {
+    height: 160px;
+    width: 200px;
+}
