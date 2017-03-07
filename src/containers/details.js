@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchTime } from '../actions/index';
 import _ from 'lodash';
 
 class Details extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { showing: false, city: props.city, list: props.list };
+        this.props.fetchTime(props.city.coord.lon, props.city.coord.lat);
+
+        this.state = { showing: false, city: props.city, list: props.list, time: 0, hour: 0 };
 
         this.show = this.show.bind(this);
         this.close = this.close.bind(this);
+        this.getTime = this.getTime.bind(this);
+        this.date = this.date.bind(this);
     }
 
     show(event){
         event.preventDefault();
-        this.setState({ showing:true });
+        this.setState({ showing:true, time: this.props.time - offset });
+        this.date();       
     }
 
     close(event){
@@ -21,19 +29,36 @@ class Details extends Component {
         this.setState({ showing:false });
     }
 
-    renderDetailsTable(){
+    getTime(utcTime, difference){
+        if(utcTime + difference/(60*60) < 0){
+            return 24 + (utcTime + difference/(60*60));
+        }
+        else if(utcTime + difference/(60*60) >= 24){
+            return (utcTime + difference/(60*60)) - 24;
+        }
+        else
+        {
+            return utcTime + difference/(60*60);        
+        }
+    }
 
+    date(){
+        const date = new Date(this.state.list[0].dt * 1000);
+        this.setState({ hour: date.getHours() });
+    }
+
+    renderDetailsTable(){
         return(
             <table className="detailsTable table table-hover">
                 <thead>
                     <tr>
-                        <td>Time (UTC)</td>
-                        <td>09:00</td>
-                        <td>12:00</td>
-                        <td>15:00</td>
-                        <td>18:00</td>
-                        <td>21:00</td>
-                        <td>00:00</td>
+                        <td>Time</td>
+                        <td>{this.getTime(this.state.hour, this.state.time)}:00</td>
+                        <td>{this.getTime(this.state.hour + 3, this.state.time)}:00</td>
+                        <td>{this.getTime(this.state.hour + 6, this.state.time)}:00</td>
+                        <td>{this.getTime(this.state.hour + 9, this.state.time)}:00</td>
+                        <td>{this.getTime(this.state.hour + 12, this.state.time)}:00</td>
+                        <td>{this.getTime(this.state.hour + 15, this.state.time)}:00</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -121,4 +146,13 @@ class Details extends Component {
 }
 
 
-export default Details;
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ fetchTime }, dispatch);
+}
+
+function mapStateToProps({ time }) {
+    return { time };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Details);

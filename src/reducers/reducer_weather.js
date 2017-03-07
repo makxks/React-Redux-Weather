@@ -6,6 +6,5 @@ export default function(state = [], action){
         case FETCH_WEATHER:
             return [ action.payload.data, ...state ];
     }
-
     return state;
 }

@@ -1,11 +1,11 @@
 import { FETCH_TIME } from '../actions/index';
 
-export default function(state = null, action){
+export default function(state = 0, action){
 
     switch (action.type) {
         case FETCH_TIME:
-            state = action.payload.data;
+            console.log(action.payload.data.gmtOffset);
+            return action.payload.data.gmtOffset;
     }
-
     return state;
 }
