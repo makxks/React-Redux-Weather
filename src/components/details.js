@@ -27,7 +27,7 @@ class Details extends Component {
             <table className="detailsTable table table-hover">
                 <thead>
                     <tr>
-                        <td></td>
+                        <td>Time (UTC)</td>
                         <td>09:00</td>
                         <td>12:00</td>
                         <td>15:00</td>
