@@ -20,7 +20,6 @@ class SearchBar extends Component {
 
     onCountryInputChange(event) {
         this.setState({ country: event.target.value} );
-        console.log(event.target.value);
     }
 
     onFormSubmit(event) {

@@ -53,10 +53,35 @@ td, th {
 }
 
 svg {
-    height: 120px;
+    height: 150px;
+    width: 250px;
 }
 
-td:first-of-type, td:first-of-type > div {
+td:first-of-type > div {
     height: 120px;
     width: 150px;
+}
+
+.details {
+    position: absolute;
+    margin: 50px;
+    border-radius: 10px;
+    background-color: #eee;
+    width: 70%;
+    height: 65%;
+    margin-top: -350px;
+    border: 1px gray solid;
+}
+
+.details h2 {
+    margin: 20px 0;
+}
+
+.detailsTable td {
+    width: 14.286%;
+}
+
+.tableTitle {
+    width: 100%;
+    text-align: center;
 }
