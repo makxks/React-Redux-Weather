@@ -20,7 +20,7 @@ class Details extends Component {
 
     show(event){
         event.preventDefault();
-        this.setState({ showing:true, time: this.props.time - offset });
+        this.setState({ showing:true, time: this.props.time });
         this.date();       
     }
 
