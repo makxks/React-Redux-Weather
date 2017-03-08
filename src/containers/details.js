@@ -19,9 +19,10 @@ class Details extends Component {
     }
 
     show(event){
+        fetchTime;
         event.preventDefault();
         this.setState({ showing:true, time: this.props.time });
-        this.date();       
+        this.date();     
     }
 
     close(event){
@@ -44,7 +45,8 @@ class Details extends Component {
 
     date(){
         const date = new Date(this.state.list[0].dt * 1000);
-        this.setState({ hour: date.getHours() });
+        const corrected = date.getHours() + date.getTimezoneOffset()/60;
+        this.setState({ hour: corrected });
     }
 
     renderDetailsTable(){
