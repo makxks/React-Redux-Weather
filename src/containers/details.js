@@ -124,7 +124,7 @@ class Details extends Component {
     renderDetails(){
         if(this.state.showing){
             return (
-                <div className="details">
+                <div className={"details"+this.state.showing}>
                     <h2>Today's forecast details</h2>
                     {this.renderDetailsTable()}
                     <button className="formButton" onClick={this.close}>Close</button>
@@ -137,7 +137,7 @@ class Details extends Component {
         return (
             <div>
                 <button className="formButton" onClick={this.show}>Details</button>
-                <div>
+                <div className={"detailsContainer"}>
                     {this.renderDetails()}
                 </div>
             </div>
