@@ -20,6 +20,10 @@ class Details extends Component {
 
     show(event){
         event.preventDefault();
+        
+        //call fetchTime promise then call date function
+        //.then set state {showing:true, time: this.props.time}
+        
         this.setState({ showing:true, time: this.props.time });
         this.date();       
     }
