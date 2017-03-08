@@ -4,7 +4,6 @@ export default function(state = 0, action){
 
     switch (action.type) {
         case FETCH_TIME:
-            console.log(action.payload.data.gmtOffset);
             return action.payload.data.gmtOffset;
     }
     return state;

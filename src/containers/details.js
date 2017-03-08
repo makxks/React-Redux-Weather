@@ -18,11 +18,12 @@ class Details extends Component {
         this.date = this.date.bind(this);
     }
 
-    show(event){
-        fetchTime;
+    show(event, props){
         event.preventDefault();
+        
+        this.props.fetchTime(this.state.city.coord.lon, this.state.city.coord.lat);
         this.setState({ showing:true, time: this.props.time });
-        this.date();     
+        this.date();
     }
 
     close(event){
@@ -54,7 +55,7 @@ class Details extends Component {
             <table className="detailsTable table table-hover">
                 <thead>
                     <tr>
-                        <td>Time</td>
+                        <td>Local Time</td>
                         <td>{this.getTime(this.state.hour, this.state.time)}:00</td>
                         <td>{this.getTime(this.state.hour + 3, this.state.time)}:00</td>
                         <td>{this.getTime(this.state.hour + 6, this.state.time)}:00</td>
