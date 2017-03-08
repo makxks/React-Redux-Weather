@@ -21,7 +21,13 @@ class Details extends Component {
     show(event, props){
         event.preventDefault();
         
+<<<<<<< HEAD
         this.props.fetchTime(this.state.city.coord.lon, this.state.city.coord.lat);
+=======
+        //call fetchTime promise then call date function
+        //.then set state {showing:true, time: this.props.time}
+        
+>>>>>>> 81c39b596c2b4c04d90c7eceda3b0ee6003a1c98
         this.setState({ showing:true, time: this.props.time });
         this.date();
     }
