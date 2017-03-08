@@ -26,5 +26,5 @@ export function fetchTime(lon, lat) {
     return {
         type: FETCH_TIME,
         payload: request
-    }
+    };
 }

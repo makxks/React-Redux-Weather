@@ -10,7 +10,7 @@ class Details extends Component {
 
         this.props.fetchTime(props.city.coord.lon, props.city.coord.lat);
 
-        this.state = { showing: false, city: props.city, list: props.list, time: 0, hour: 0 };
+        this.state = { showing: false, city: props.city, list: props.list };
 
         this.show = this.show.bind(this);
         this.close = this.close.bind(this);
@@ -20,16 +20,8 @@ class Details extends Component {
 
     show(event, props){
         event.preventDefault();
-        
-<<<<<<< HEAD
         this.props.fetchTime(this.state.city.coord.lon, this.state.city.coord.lat);
-=======
-        //call fetchTime promise then call date function
-        //.then set state {showing:true, time: this.props.time}
-        
->>>>>>> 81c39b596c2b4c04d90c7eceda3b0ee6003a1c98
-        this.setState({ showing:true, time: this.props.time });
-        this.date();
+        this.setState({ showing:true });
     }
 
     close(event){
@@ -52,8 +44,7 @@ class Details extends Component {
 
     date(){
         const date = new Date(this.state.list[0].dt * 1000);
-        const corrected = date.getHours() + date.getTimezoneOffset()/60;
-        this.setState({ hour: corrected });
+        return (date.getHours() + date.getTimezoneOffset()/60);
     }
 
     renderDetailsTable(){
@@ -62,12 +53,12 @@ class Details extends Component {
                 <thead>
                     <tr>
                         <td>Local Time</td>
-                        <td>{this.getTime(this.state.hour, this.state.time)}:00</td>
-                        <td>{this.getTime(this.state.hour + 3, this.state.time)}:00</td>
-                        <td>{this.getTime(this.state.hour + 6, this.state.time)}:00</td>
-                        <td>{this.getTime(this.state.hour + 9, this.state.time)}:00</td>
-                        <td>{this.getTime(this.state.hour + 12, this.state.time)}:00</td>
-                        <td>{this.getTime(this.state.hour + 15, this.state.time)}:00</td>
+                        <td>{this.getTime(this.date(), this.props.time)}:00</td>
+                        <td>{this.getTime(this.date() + 3, this.props.time)}:00</td>
+                        <td>{this.getTime(this.date() + 6, this.props.time)}:00</td>
+                        <td>{this.getTime(this.date() + 9, this.props.time)}:00</td>
+                        <td>{this.getTime(this.date() + 12, this.props.time)}:00</td>
+                        <td>{this.getTime(this.date() + 15, this.props.time)}:00</td>
                     </tr>
                 </thead>
                 <tbody>
