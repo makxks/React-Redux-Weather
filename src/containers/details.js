@@ -55,7 +55,10 @@ class Details extends Component {
 
     date(day){
         const date = new Date((this.state.list[0].dt * 1000) + (day*24*60*60*1000));
-        return (date.getDate());
+        return {
+            day: date.getDate(),
+            month: date.getMonth() + 1
+        };
     }
 
     day1(event){
@@ -124,29 +127,42 @@ class Details extends Component {
         return averageWind;
     }
 
+    dailyIcon(iterations, start, state){
+        var icon = `http://openweathermap.org/img/w/${this.state.list[0].weather[0].icon}.png`;
+    }
+
     fiveDay(state){
         const time = this.getTime(this.hour(), this.props.time);
-        var forecasts = _.floor(((24 - time)/3) + 1);
+        var forecasts = _.floor(((23 - time)/3) + 1);
         var nextStart = forecasts;
+        var iconNumber = 0;
         var start = 0;
         var fiveDayForecast = {};
         
         for(var i=0; i<5 ; i++){
             if(i==0){
                 forecasts = forecasts;
-                start = 0;       
+                start = 0;
+                if(forecasts<5){
+                    iconNumber = 0;
+                }
+                else {
+                    iconNumber = _.floor((12 - time)/3);
+                }
             }
             else { 
                 start = nextStart;
                 forecasts = 8;
-                nextStart += forecasts;                              
+                iconNumber = nextStart + 5;
+                nextStart += forecasts;                                         
             }
             var day = {
             maxTemp: this.dailyMaxTemp(forecasts,start,state), 
             minTemp: this.dailyMinTemp(forecasts,start,state),
             pressure: this.dailyPressure(forecasts,start,state),
             humidity: this.dailyHumidity(forecasts,start,state),
-            wind: this.dailyWind(forecasts,start,state)
+            wind: this.dailyWind(forecasts,start,state),
+            icon: `http://openweathermap.org/img/w/${this.state.list[iconNumber].weather[0].icon}.png`
             }
             fiveDayForecast[i] = day;
         }
@@ -233,14 +249,22 @@ class Details extends Component {
                     <thead>
                         <tr>
                             <td>Day</td>
-                            <td>{this.date(0)}</td>
-                            <td>{this.date(1)}</td>
-                            <td>{this.date(2)}</td>
-                            <td>{this.date(3)}</td>
-                            <td>{this.date(4)}</td>
+                            <td>{this.date(0).day + " / " + this.date(0).month}</td>
+                            <td>{this.date(1).day + " / " + this.date(1).month}</td>
+                            <td>{this.date(2).day + " / " + this.date(2).month}</td>
+                            <td>{this.date(3).day + " / " + this.date(3).month}</td>
+                            <td>{this.date(4).day + " / " + this.date(4).month}</td>
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td></td>
+                            <td><img src={(this.fiveDay(this.state)[0].icon)} /></td>
+                            <td><img src={(this.fiveDay(this.state)[1].icon)} /></td>
+                            <td><img src={(this.fiveDay(this.state)[2].icon)} /></td>
+                            <td><img src={(this.fiveDay(this.state)[3].icon)} /></td>
+                            <td><img src={(this.fiveDay(this.state)[4].icon)} /></td>
+                        </tr>
                         <tr>
                             <td>Max Temp (°C)</td>
                             <td>{_.round(this.fiveDay(this.state)[0].maxTemp)}</td>
