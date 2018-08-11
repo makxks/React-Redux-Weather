@@ -1,7 +1,7 @@
 {
   "name": "react-redux-weather",
   "version": "1.0.0",
-  "description": "Simple starter package for Redux with React and Babel support",
+  "description": "Simple global weather app using react and redux",
   "main": "index.js",
   "repository": "git@github.com:makxks/React-Redux-Weather.git",
   "scripts": {
